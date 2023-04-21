@@ -1,23 +1,41 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { useState,useEffect } from 'react';
+import axios from 'axios';
+import DigiCard from './components/DigiCard';
 
 function App() {
+
+const [digimon,setDigimon] = useState([])
+
+useEffect(() => {
+  axios
+  .get('https://digimon-api.vercel.app/api/digimon')
+  .then((res) => {
+    console.log(res.data)
+
+    setDigimon(res.data)
+
+    
+   
+
+    })
+   
+  
+    
+  },[])
+
+const digi = digimon.map((d,index) => {
+ return d.name
+})
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <header>Digimon</header>
+
+    <DigiCard digimon={digimon}/>
     </div>
   );
 }
